@@ -8,7 +8,7 @@ def configure_genai(api_key):
 
 # ---------------- GEMINI ----------------
 def get_gemini_response(prompt):
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-1.5-flash-latest")
     response = model.generate_content(prompt)
     return response.text
 
@@ -23,21 +23,3 @@ def extract_pdf_text(file):
             text += t + "\n"
 
     return text
-
-# ---------------- PROMPT ----------------
-def prepare_prompt(resume_text, jd):
-    return f"""
-Return ONLY JSON:
-
-{{
-  "JD Match": "85%",
-  "MissingKeywords": [],
-  "Profile Summary": ""
-}}
-
-Resume:
-{resume_text}
-
-Job:
-{jd}
-"""
