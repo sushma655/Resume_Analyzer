@@ -1,20 +1,15 @@
-from google import genai
+import google.generativeai as genai
 from PyPDF2 import PdfReader
 import os
 
 # ---------------- CONFIG ----------------
 def configure_genai(api_key):
-    os.environ["GEMINI_API_KEY"] = api_key
+    genai.configure(api_key=api_key)
 
 # ---------------- GEMINI ----------------
 def get_gemini_response(prompt):
-    client = genai.Client()
-
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
-    )
-
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
     return response.text
 
 # ---------------- PDF ----------------
